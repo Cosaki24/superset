@@ -22,6 +22,6 @@ DB_IMAGES:
   postgresql: "assets/images/postgresql.png"
   bigquery: "assets/images/google-bigquery.png"
   pydoris: "assets/images/doris.png"
-  gsheets: "assets/images/"
+  gsheets: "assets/images/gsheets.png"
   oracle: "assets/images/oracle.png"
 
