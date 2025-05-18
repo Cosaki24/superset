@@ -31,9 +31,8 @@ logger = logging.getLogger()
 
 # App Settings
 APP_NAME = "SoftBI"
-
 APP_ICON = "/static/assets/images/softbi-logo.png"
-LOGO_RIGHT_TEXT: Callable[[], str] | str = "Tanzania Commercial Bank"
+LOGO_RIGHT_TEXT: str = "Tanzania Commercial Bank"
 
 # A list of preferred databases, in order. These databases will be
 # displayed prominently in the "Add Database" dialog. You should
@@ -42,12 +41,14 @@ LOGO_RIGHT_TEXT: Callable[[], str] | str = "Tanzania Commercial Bank"
 PREFERRED_DATABASES: list[str] = [
     "Apache Doris",
     "PostgreSQL",
-    "MySQL",
     "Google Sheets",
     "Microsoft SQL Server",
     "Oracle",
+    "MySQL",
     # etc.
 ]
+
+CURRENCIES = ["TZS","KES","UGX", "ZAR", "USD", "EUR", "GBP", "INR", "MXN", "JPY", "CNY"]
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
