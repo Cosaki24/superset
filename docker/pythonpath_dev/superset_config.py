@@ -29,6 +29,26 @@ from flask_caching.backends.filesystemcache import FileSystemCache
 
 logger = logging.getLogger()
 
+# App Settings
+APP_NAME = "SoftBI"
+
+APP_ICON = "/static/assets/images/softbi-logo.png"
+LOGO_RIGHT_TEXT: Callable[[], str] | str = "Tanzania Commercial Bank"
+
+# A list of preferred databases, in order. These databases will be
+# displayed prominently in the "Add Database" dialog. You should
+# use the "engine_name" attribute of the corresponding DB engine spec
+# in `superset/db_engine_specs/`.
+PREFERRED_DATABASES: list[str] = [
+    "Apache Doris",
+    "PostgreSQL",
+    "MySQL",
+    "Google Sheets",
+    "Microsoft SQL Server",
+    "Oracle",
+    # etc.
+]
+
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
 DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
