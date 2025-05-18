@@ -114,10 +114,10 @@ RUN useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash 
 # Some bash scripts needed throughout the layers
 COPY --chmod=755 docker/*.sh /app/docker/
 
-RUN pip install --no-cache-dir --upgrade uv
+# RUN pip install --no-cache-dir --upgrade uv
 
 # Using uv as it's faster/simpler than pip
-RUN uv venv /app/.venv
+RUN python3 -m venv /app/.venv
 ENV PATH="/app/.venv/bin:${PATH}"
 
 ######################################################################
@@ -171,7 +171,7 @@ ARG INCLUDE_CHROMIUM="true"
 ARG INCLUDE_FIREFOX="false"
 RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
     if [ "$INCLUDE_CHROMIUM" = "true" ] || [ "$INCLUDE_FIREFOX" = "true" ]; then \
-        uv pip install playwright && \
+        pip install playwright && \
         playwright install-deps && \
         if [ "$INCLUDE_CHROMIUM" = "true" ]; then playwright install chromium; fi && \
         if [ "$INCLUDE_FIREFOX" = "true" ]; then playwright install firefox; fi; \
@@ -223,7 +223,7 @@ RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
     /app/docker/pip-install.sh --requires-build-essential -r requirements/base.txt
 # Install the superset package
 RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
-    uv pip install .
+    pip install .
 RUN python -m compileall /app/superset
 
 USER superset
@@ -246,9 +246,9 @@ RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
     /app/docker/pip-install.sh --requires-build-essential -r requirements/development.txt
 # Install the superset package
 RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
-    uv pip install .
+    pip install .
 
-RUN uv pip install .[postgres]
+RUN pip install .[postgres]
 RUN python -m compileall /app/superset
 
 USER superset
@@ -256,8 +256,8 @@ USER superset
 ######################################################################
 # CI image...
 ######################################################################
-FROM lean AS ci
+FROM dev AS ci
 USER root
-RUN uv pip install .[postgres]
+RUN pip install .[postgres]
 USER superset
 CMD ["/app/docker/entrypoints/docker-ci.sh"]

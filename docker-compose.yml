@@ -35,10 +35,10 @@ x-common-build: &common-build
   cache_from:
     - apache/superset-cache:3.10-slim-bookworm
   args:
-    DEV_MODE: "true"
-    INCLUDE_CHROMIUM: ${INCLUDE_CHROMIUM:-false}
+    DEV_MODE: "false"
+    INCLUDE_CHROMIUM: ${INCLUDE_CHROMIUM:-true}
     INCLUDE_FIREFOX: ${INCLUDE_FIREFOX:-false}
-    BUILD_TRANSLATIONS: ${BUILD_TRANSLATIONS:-false}
+    BUILD_TRANSLATIONS: ${BUILD_TRANSLATIONS:-true}
 
 services:
   nginx:

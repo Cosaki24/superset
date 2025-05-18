@@ -22,7 +22,7 @@ set -eo pipefail
 if [ "$DEV_MODE" == "true" ]; then
     if [ "$(whoami)" = "root" ] && command -v uv > /dev/null 2>&1; then
       echo "Reinstalling the app in editable mode"
-      uv pip install -e .
+      pip install -e .
     fi
 fi
 REQUIREMENTS_LOCAL="/app/docker/requirements-local.txt"
@@ -39,7 +39,7 @@ if [[ "$DATABASE_DIALECT" == postgres* ]] && [ "$(whoami)" = "root" ]; then
     echo "Installing postgres requirements"
     if command -v uv > /dev/null 2>&1; then
         # Use uv in newer images
-        uv pip install -e .[postgres]
+        pip install -e .[postgres]
     else
         # Use pip in older images
         pip install -e .[postgres]
@@ -51,7 +51,7 @@ fi
 if [ -f "${REQUIREMENTS_LOCAL}" ]; then
   echo "Installing local overrides at ${REQUIREMENTS_LOCAL}"
   if command -v uv > /dev/null 2>&1; then
-    uv pip install --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
+    pip install --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
   else
     pip install --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
   fi
